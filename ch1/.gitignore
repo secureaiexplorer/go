@@ -1,0 +1,5 @@
+# ignore binary files
+./fetch/fetch
+./dup/dup
+./echo/echo
+./lissajous/lissajous
