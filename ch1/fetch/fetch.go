@@ -21,11 +21,11 @@ func main() {
 			os.Exit(1)
 		}
 		b, err := io.Copy(os.Stdout, resp.Body)
+		fmt.Printf("\n%d bytes read. Http status: %s\n", b, resp.Status)
 		resp.Body.Close()
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "fetch: reading %s: %v\n", url, err)
 			os.Exit(1)
 		}
-		fmt.Printf("\n%d bytes read\n", b)
 	}
 }
