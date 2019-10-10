@@ -20,18 +20,23 @@ import (
 
 func main() {
 	const prefix = "http://"
+	outfile := os.Args[1]
 	start := time.Now()
+	f, err := os.OpenFile(outfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		panic(err.Error())
+	}
 	ch := make(chan string)
-	for _, url := range os.Args[1:] {
+	for _, url := range os.Args[2:] {
 		if strings.HasPrefix(url, prefix) == false {
 			url = prefix + url
 		}
 		go fetch(url, ch) // start a goroutine
 	}
-	for range os.Args[1:] {
-		fmt.Println(<-ch) // receive from channel ch
+	for range os.Args[2:] {
+		fmt.Fprintln(f, <-ch) // receive from channel ch
 	}
-	fmt.Printf("%.2fs elapsed\n", time.Since(start).Seconds())
+	fmt.Fprintln(f, time.Since(start).Seconds(), "elapsed")
 }
 
 func fetch(url string, ch chan<- string) {
