@@ -7,9 +7,11 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 )
 
 func main() {
+	defer trace("fetch")()
 	const prefix = "http://"
 	for _, url := range os.Args[1:] {
 		if strings.HasPrefix(url, prefix) == false {
@@ -28,4 +30,9 @@ func main() {
 			os.Exit(1)
 		}
 	}
+}
+
+func trace(msg string) func() {
+	start := time.Now()
+	return func() { fmt.Println("Operation", msg, "TimeTaken", time.Since(start)) }
 }
