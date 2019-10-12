@@ -20,15 +20,21 @@ import (
 
 func main() {
 	const prefix = "http://"
+	const www = "www."
 	outfile := os.Args[1]
 	start := time.Now()
 	f, err := os.OpenFile(outfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		panic(err.Error())
 	}
+	f, err = os.OpenFile(outfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+
 	ch := make(chan string)
 	for _, url := range os.Args[2:] {
 		if strings.HasPrefix(url, prefix) == false {
+			if strings.HasPrefix(url, www) == false {
+				url = www + url
+			}
 			url = prefix + url
 		}
 		go fetch(url, ch) // start a goroutine
