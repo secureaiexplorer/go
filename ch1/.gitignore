@@ -4,3 +4,4 @@
 ./echo/echo
 ./lissajous/lissajous
 ./fetchall/fetchall
+./server/server
