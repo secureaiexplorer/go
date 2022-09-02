@@ -87,29 +87,3 @@ func TestQueue_Subscribe(t *testing.T) {
 		})
 	}
 }
-
-func TestMyQueue_Publish(t *testing.T) {
-	type fields struct {
-		Data        []string
-		Subscribers map[string]int
-	}
-	type args struct {
-		message string
-	}
-	tests := []struct {
-		name   string
-		fields fields
-		args   args
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			q := &MyQueue{
-				Data:        tt.fields.Data,
-				Subscribers: tt.fields.Subscribers,
-			}
-			q.Publish(tt.args.message)
-		})
-	}
-}
